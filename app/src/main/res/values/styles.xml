@@ -1,0 +1,59 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="BasicLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="BasicTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/basic_text_size</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="MainTemperatureTextView" parent="BasicTextView">
+        <item name="android:textSize">@dimen/temperature_big_text_size</item>
+    </style>
+
+    <style name="SmallTextView" parent="BasicTextView">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
+
+
+    <style name="TextViewWithDrawable" parent="BasicTextView">
+        <item name="android:width">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">@dimen/tv_with_big_drawable_padding</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">@dimen/tv_with_drawable_vertical_margin</item>
+    </style>
+
+    <style name="DrawerTitleTextView" parent="BasicTextView">
+        <item name="android:alpha">0.5</item>
+        <item name="android:textSize">@dimen/drawer_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingLeft">@dimen/drawer_title_left_padding</item>
+    </style>
+
+    <style name="TabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabGravity">fill</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="tabIndicatorColor">@android:color/white</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabSelectedTextColor">@color/colorTabTextPrimary</item>
+        <item name="tabTextColor">@color/colorTabTextSecondary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+    </style>
+
+</resources>

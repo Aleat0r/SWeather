@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_weather_data"
+            android:icon="@drawable/ic_temperature"
+            android:title="@string/weather_data" />
+        <item
+            android:id="@+id/item_wether_map"
+            android:icon="@drawable/ic_map"
+            android:title="@string/weather_map" />
+    </group>
+
+</menu>

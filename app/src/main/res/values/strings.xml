@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">SWeather</string>
+
+    <string name="degrees_celsius">°C</string>
+    <string name="percent">%</string>
+    <string name="metric_speed">m/s</string>
+    <string name="hectopascal">hPa</string>
+    <string name="empty_place">\u0020</string>
+    <string name="n_a">N/A</string>
+
+    <string name="image_format">.png</string>
+
+    <string name="weather_data">Weather data</string>
+    <string name="weather_map">Weather map</string>
+
+    <string name="time_format">HH:mm</string>
+    <string name="last_update_date_format">EEE, d MMM, HH:mm</string>
+    <string name="last_update_text">last update:</string>
+    <string name="update">Update</string>
+    <string name="update_success">Information update is complete</string>
+    <string name="error_update">Error!\nPlease check your internet connection</string>
+
+    <string name="description_tv_wind">Wind speed</string>
+    <string name="description_tv_humidity">Humidity</string>
+    <string name="description_tv_cloudiness">Cloudiness</string>
+    <string name="description_tv_sunrise">Sunrise time</string>
+    <string name="description_tv_sunset">Sunset time</string>
+    <string name="description_tv_pressure">Atmospheric pressure</string>
+
+    <string name="tub_current_weather">Current</string>
+</resources>

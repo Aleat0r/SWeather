@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="@style/BasicLinearLayout"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/fragment_margin">
+
+        <LinearLayout
+            style="@style/BasicLinearLayout"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SmallTextView"
+                android:text="@string/last_update_text" />
+
+            <TextView
+                android:id="@+id/tv_last_update"
+                style="@style/SmallTextView"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            style="@style/MainTemperatureTextView"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/n_a"
+            tools:text="24.1 °C" />
+
+        <LinearLayout
+            style="@style/BasicLinearLayout"
+            android:layout_margin="@dimen/weather_type_vertical_margin"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/img_weather_type"
+                android:layout_width="@dimen/weather_type_icon_size"
+                android:layout_height="@dimen/weather_type_icon_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/weather_type_icon_margin"
+                tools:src="@drawable/ic_sunrise" />
+
+            <TextView
+                android:id="@+id/tv_weather_description"
+                style="@style/BasicTextView"
+                android:layout_gravity="center"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/BasicLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_wind"
+                style="@style/TextViewWithDrawable"
+                android:drawableLeft="@drawable/ic_wind"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+            <TextView
+                android:id="@+id/tv_sunrise"
+                style="@style/TextViewWithDrawable"
+                android:drawableLeft="@drawable/ic_sunrise"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/BasicLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_humidity"
+                style="@style/TextViewWithDrawable"
+                android:drawableLeft="@drawable/ic_humidity"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+            <TextView
+                android:id="@+id/tv_sunset"
+                style="@style/TextViewWithDrawable"
+                android:drawableLeft="@drawable/ic_sunset"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/BasicLinearLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_cloudiness"
+                style="@style/TextViewWithDrawable"
+                android:drawableLeft="@drawable/ic_cloudiness"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+            <TextView
+                android:id="@+id/tv_pressure"
+                style="@style/TextViewWithDrawable"
+                android:drawableLeft="@drawable/ic_pressure"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
