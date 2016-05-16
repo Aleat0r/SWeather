@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.aleat0r.weather.R;
 import com.aleat0r.weather.fragment.WeatherDataPagerFragment;
+import com.aleat0r.weather.fragment.WeatherMapFragment;
 import com.aleat0r.weather.util.Constants;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                             displayFragment(Constants.WEATHER_DATA_PAGER_FRAGMENT);
                             break;
                         case R.id.item_wether_map:
-//                            displayFragment(Constants.WEATHER_MAP_FRAGMENT);
+                            displayFragment(Constants.WEATHER_MAP_FRAGMENT);
                             break;
                         default:
                             break;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new WeatherDataPagerFragment();
                 break;
             case Constants.WEATHER_MAP_FRAGMENT:
+                fragment = new WeatherMapFragment();
                 break;
             default:
                 break;
