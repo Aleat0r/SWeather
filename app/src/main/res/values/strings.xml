@@ -30,4 +30,6 @@
 
     <string name="tub_current_weather">Current</string>
     <string name="tub_forecast_weather">Forecast</string>
+
+    <string name="progress_dialog_message">Please wait. Downloading...</string>
 </resources>

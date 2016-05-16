@@ -1,5 +1,6 @@
 package com.aleat0r.weather.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 
 import com.aleat0r.weather.R;
 import com.aleat0r.weather.activity.MainActivity;
-import com.aleat0r.weather.bus.event.ErrorEvent;
+import com.aleat0r.weather.bus.event.ErrorEventCurrentWeather;
 import com.aleat0r.weather.network.ApiConstants;
 import com.aleat0r.weather.pojo.weather.current.CurrentWeatherData;
 import com.aleat0r.weather.util.Utils;
@@ -42,6 +43,8 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     private CoordinatorLayout mCoordinatorLayout;
     private Toolbar mToolbar;
 
+    private ProgressDialog mProgressDialog;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -53,16 +56,19 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mCoordinatorLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_current_weather, container, false);
-        initTextViews(mCoordinatorLayout);
+        initViews(mCoordinatorLayout);
         updateWeatherInfo();
         return mCoordinatorLayout;
     }
 
     private void updateWeatherInfo() {
+        mProgressDialog.show();
         super.getWeatherByCity(ApiConstants.WEATHER_CURRENT, ApiConstants.DEFAULT_CITY);
     }
 
-    private void initTextViews(View view) {
+    private void initViews(View view) {
+        mProgressDialog = Utils.createProgressDialog(getActivity());
+
         mImgWeatherType = (ImageView) view.findViewById(R.id.img_weather_type);
         mTvWeatherDescription = (TextView) view.findViewById(R.id.tv_weather_description);
         mTvTemperature = (TextView) view.findViewById(R.id.tv_temperature);
@@ -112,11 +118,13 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     public void onWeatherDataEvent(CurrentWeatherData currentWeatherData) {
         setWeatherData(currentWeatherData);
         setDateLastUpdate(currentWeatherData.getUpdateDate());
+        mProgressDialog.dismiss();
         Utils.showMessage(mCoordinatorLayout, R.string.update_success);
     }
 
     @Subscribe
-    public void onErrorEvent(ErrorEvent errorEvent) {
+    public void onErrorEvent(ErrorEventCurrentWeather errorEventCurrentWeather) {
+        mProgressDialog.dismiss();
         Utils.showMessage(mCoordinatorLayout, R.string.error_update);
     }
 

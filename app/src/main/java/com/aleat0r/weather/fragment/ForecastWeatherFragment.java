@@ -1,5 +1,6 @@
 package com.aleat0r.weather.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -15,7 +16,8 @@ import android.widget.TextView;
 import com.aleat0r.weather.R;
 import com.aleat0r.weather.activity.MainActivity;
 import com.aleat0r.weather.adapter.ForecastRecyclerAdapter;
-import com.aleat0r.weather.bus.event.ErrorEvent;
+import com.aleat0r.weather.bus.event.ErrorEventCurrentWeather;
+import com.aleat0r.weather.bus.event.ErrorEventForecastWeather;
 import com.aleat0r.weather.network.ApiConstants;
 import com.aleat0r.weather.pojo.weather.forecast.ForecastWeatherData;
 import com.aleat0r.weather.util.Utils;
@@ -34,6 +36,7 @@ public class ForecastWeatherFragment extends WeatherFragment {
     private CoordinatorLayout mCoordinatorLayout;
     private Toolbar mToolbar;
 
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onAttach(Context context) {
@@ -52,6 +55,8 @@ public class ForecastWeatherFragment extends WeatherFragment {
     }
 
     private void initViews(View view) {
+        mProgressDialog = Utils.createProgressDialog(getActivity());
+
         mTvLastUpdate = (TextView) view.findViewById(R.id.tv_last_update);
 
         mRvForecast = (RecyclerView) view.findViewById(R.id.rv_forecast);
@@ -61,6 +66,7 @@ public class ForecastWeatherFragment extends WeatherFragment {
     }
 
     private void updateWeatherInfo() {
+        mProgressDialog.show();
         super.getWeatherByCity(ApiConstants.WEATHER_FORECAST, ApiConstants.DEFAULT_CITY);
     }
 
@@ -68,11 +74,13 @@ public class ForecastWeatherFragment extends WeatherFragment {
     public void onWeatherDataEvent(ForecastWeatherData forecastData) {
         setWeatherData(forecastData);
         setDateLastUpdate(forecastData.getUpdateDate());
+        mProgressDialog.dismiss();
         Utils.showMessage(mCoordinatorLayout, R.string.update_success);
     }
 
     @Subscribe
-    public void onErrorEvent(ErrorEvent errorEvent) {
+    public void onErrorEvent(ErrorEventForecastWeather errorEventForecastWeather) {
+        mProgressDialog.dismiss();
         Utils.showMessage(mCoordinatorLayout, R.string.error_update);
     }
 

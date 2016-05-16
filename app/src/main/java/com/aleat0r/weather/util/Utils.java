@@ -1,5 +1,6 @@
 package com.aleat0r.weather.util;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -33,5 +34,14 @@ public class Utils {
 
     public static void showMessage(View view, int message) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public static ProgressDialog createProgressDialog(Context context) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage(context.getResources().getString(R.string.progress_dialog_message));
+        return progressDialog;
     }
 }

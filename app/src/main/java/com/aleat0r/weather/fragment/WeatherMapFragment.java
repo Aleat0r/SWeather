@@ -20,10 +20,9 @@ import com.aleat0r.weather.util.Constants;
 /**
  * Created by Aleksandr Kovalenko on 16.05.2016.
  */
-public class WeatherMapFragment extends Fragment{
+public class WeatherMapFragment extends Fragment {
 
     private Toolbar mToolbar;
-    private WebView mWebView;
 
     @Override
     public void onAttach(Context context) {
@@ -47,16 +46,12 @@ public class WeatherMapFragment extends Fragment{
         return view;
     }
 
-    private void initWebView(View view){
-        mWebView = (WebView) view.findViewById(R.id.web_view);
-        WebSettings webSettings = mWebView.getSettings();
+    private void initWebView(View view) {
+        WebView webView = (WebView) view.findViewById(R.id.web_view);
+        WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
-        updateWeatherInfo();
-    }
-
-    private void updateWeatherInfo(){
-        mWebView.loadUrl(Constants.URL_WEATHER_MAP_HTML);
+        webView.loadUrl(Constants.URL_WEATHER_MAP_HTML);
     }
 
     @Override

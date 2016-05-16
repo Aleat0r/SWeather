@@ -1,7 +1,8 @@
 package com.aleat0r.weather.network;
 
 import com.aleat0r.weather.bus.BusProvider;
-import com.aleat0r.weather.bus.event.ErrorEvent;
+import com.aleat0r.weather.bus.event.ErrorEventCurrentWeather;
+import com.aleat0r.weather.bus.event.ErrorEventForecastWeather;
 import com.aleat0r.weather.pojo.weather.current.CurrentWeatherData;
 import com.aleat0r.weather.pojo.weather.forecast.ForecastWeatherData;
 
@@ -57,7 +58,7 @@ public class ApiController {
 
             @Override
             public void onFailure(Call<CurrentWeatherData> call, Throwable t) {
-                BusProvider.getInstance().post(new ErrorEvent());
+                BusProvider.getInstance().post(new ErrorEventCurrentWeather());
             }
         });
     }
@@ -77,7 +78,7 @@ public class ApiController {
 
             @Override
             public void onFailure(Call<ForecastWeatherData> call, Throwable t) {
-                BusProvider.getInstance().post(new ErrorEvent());
+                BusProvider.getInstance().post(new ErrorEventForecastWeather());
             }
         });
     }
