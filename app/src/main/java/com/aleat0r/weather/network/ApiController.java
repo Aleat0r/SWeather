@@ -3,6 +3,7 @@ package com.aleat0r.weather.network;
 import com.aleat0r.weather.bus.BusProvider;
 import com.aleat0r.weather.bus.event.ErrorEvent;
 import com.aleat0r.weather.pojo.weather.current.CurrentWeatherData;
+import com.aleat0r.weather.pojo.weather.forecast.ForecastWeatherData;
 
 import java.util.Date;
 import java.util.Map;
@@ -56,6 +57,26 @@ public class ApiController {
 
             @Override
             public void onFailure(Call<CurrentWeatherData> call, Throwable t) {
+                BusProvider.getInstance().post(new ErrorEvent());
+            }
+        });
+    }
+
+    public static void getForecastWeather(Map<String, Object> params) {
+        Call<ForecastWeatherData> call = ApiController.getOpenWeatherApiService().loadForecastWeather(params);
+        call.enqueue(new Callback<ForecastWeatherData>() {
+
+            @Override
+            public void onResponse(Call<ForecastWeatherData> call, Response<ForecastWeatherData> response) {
+                if (response.isSuccessful()) {
+                    ForecastWeatherData forecastWeatherData = response.body();
+                    forecastWeatherData.setUpdateDate(new Date());
+                    BusProvider.getInstance().post(forecastWeatherData);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ForecastWeatherData> call, Throwable t) {
                 BusProvider.getInstance().post(new ErrorEvent());
             }
         });

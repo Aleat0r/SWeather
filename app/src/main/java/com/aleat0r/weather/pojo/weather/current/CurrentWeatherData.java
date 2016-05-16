@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.aleat0r.weather.pojo.weather.Clouds;
 import com.aleat0r.weather.pojo.weather.Coord;
-import com.aleat0r.weather.pojo.weather.Main;
-import com.aleat0r.weather.pojo.weather.Sys;
 import com.aleat0r.weather.pojo.weather.Weather;
-import com.aleat0r.weather.pojo.weather.Wind;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

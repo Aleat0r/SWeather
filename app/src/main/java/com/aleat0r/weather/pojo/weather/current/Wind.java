@@ -1,4 +1,4 @@
-package com.aleat0r.weather.pojo.weather;
+package com.aleat0r.weather.pojo.weather.current;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

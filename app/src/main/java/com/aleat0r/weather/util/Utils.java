@@ -9,7 +9,6 @@ import com.aleat0r.weather.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 
 /**
@@ -22,8 +21,13 @@ public class Utils {
         return time;
     }
 
+    public static String getDateFromUnix(Context context, long unixDate){
+        String date = new SimpleDateFormat(context.getString(R.string.forecast_date_format)).format(new Date(unixDate * 1000L));
+        return date;
+    }
+
     public static String convertDateToString(Context context, Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.last_update_date_format), Locale.US);
+        DateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.last_update_date_format));
         return dateFormat.format(date);
     }
 

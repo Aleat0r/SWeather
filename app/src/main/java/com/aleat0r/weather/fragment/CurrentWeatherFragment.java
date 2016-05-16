@@ -3,7 +3,6 @@ package com.aleat0r.weather.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,7 +16,6 @@ import com.aleat0r.weather.activity.MainActivity;
 import com.aleat0r.weather.bus.event.ErrorEvent;
 import com.aleat0r.weather.network.ApiConstants;
 import com.aleat0r.weather.pojo.weather.current.CurrentWeatherData;
-import com.aleat0r.weather.bus.BusProvider;
 import com.aleat0r.weather.util.Utils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
@@ -47,7 +45,6 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         if (getActivity() instanceof MainActivity) {
             mToolbar = ((MainActivity) getActivity()).getToolbar();
         }
@@ -141,18 +138,6 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
 
     private void setDateLastUpdate(Date date) {
         mTvLastUpdate.setText(Utils.convertDateToString(getActivity(), date));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        BusProvider.getInstance().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        BusProvider.getInstance().unregister(this);
     }
 
     @Override

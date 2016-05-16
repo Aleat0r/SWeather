@@ -64,14 +64,14 @@
 
             <TextView
                 android:id="@+id/tv_wind"
-                style="@style/TextViewWithDrawable"
+                style="@style/BigTextViewWithDrawable"
                 android:drawableLeft="@drawable/ic_wind"
                 android:text="@string/n_a"
                 tools:text="some text" />
 
             <TextView
                 android:id="@+id/tv_sunrise"
-                style="@style/TextViewWithDrawable"
+                style="@style/BigTextViewWithDrawable"
                 android:drawableLeft="@drawable/ic_sunrise"
                 android:text="@string/n_a"
                 tools:text="some text" />
@@ -84,14 +84,14 @@
 
             <TextView
                 android:id="@+id/tv_humidity"
-                style="@style/TextViewWithDrawable"
+                style="@style/BigTextViewWithDrawable"
                 android:drawableLeft="@drawable/ic_humidity"
                 android:text="@string/n_a"
                 tools:text="some text" />
 
             <TextView
                 android:id="@+id/tv_sunset"
-                style="@style/TextViewWithDrawable"
+                style="@style/BigTextViewWithDrawable"
                 android:drawableLeft="@drawable/ic_sunset"
                 android:text="@string/n_a"
                 tools:text="some text" />
@@ -104,14 +104,14 @@
 
             <TextView
                 android:id="@+id/tv_cloudiness"
-                style="@style/TextViewWithDrawable"
+                style="@style/BigTextViewWithDrawable"
                 android:drawableLeft="@drawable/ic_cloudiness"
                 android:text="@string/n_a"
                 tools:text="some text" />
 
             <TextView
                 android:id="@+id/tv_pressure"
-                style="@style/TextViewWithDrawable"
+                style="@style/BigTextViewWithDrawable"
                 android:drawableLeft="@drawable/ic_pressure"
                 android:text="@string/n_a"
                 tools:text="some text" />

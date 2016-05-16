@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="@style/BasicLinearLayout"
+        android:layout_margin="@dimen/fragment_margin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/BasicLinearLayout"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SmallTextView"
+                android:text="@string/last_update_text" />
+
+            <TextView
+                android:id="@+id/tv_last_update"
+                style="@style/SmallTextView"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:text="@string/n_a"
+                tools:text="some text" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_forecast"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/small_margin"
+            tools:listitem="@layout/item_card_rv_forecast" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

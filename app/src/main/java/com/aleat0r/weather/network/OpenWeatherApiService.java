@@ -1,6 +1,7 @@
 package com.aleat0r.weather.network;
 
 import com.aleat0r.weather.pojo.weather.current.CurrentWeatherData;
+import com.aleat0r.weather.pojo.weather.forecast.ForecastWeatherData;
 
 import java.util.Map;
 
@@ -16,5 +17,9 @@ public interface OpenWeatherApiService {
 
     @POST("weather")
     Call<CurrentWeatherData> loadCurrentWeather(@QueryMap Map<String, Object> params);
+
+    @POST("forecast/daily")
+    Call<ForecastWeatherData> loadForecastWeather(@QueryMap Map<String, Object> params);
+
 
 }

@@ -7,7 +7,11 @@
     <color name="colorTextSecondary">#727272</color>
     <color name="colorGradientStart">#2196F3</color>
     <color name="colorGradientCenter">#03A9F4</color>
-    <color name="colorGradientEnd">#BBDEFB</color>
+    <color name="colorGradientEnd">#a3d2fa</color>
     <color name="colorTabTextPrimary">@android:color/white</color>
     <color name="colorTabTextSecondary">#CCD7E6</color>
+    <color name="dividerColor">@android:color/white</color>
+    <color name="itemCardColor">#BBDEFB</color>
+    <color name="maxTemperatureColor">@android:color/holo_red_light</color>
+    <color name="minTemperatureColor">@android:color/holo_blue_dark</color>
 </resources>

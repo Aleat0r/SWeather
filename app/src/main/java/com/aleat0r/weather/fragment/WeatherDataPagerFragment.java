@@ -35,10 +35,12 @@ public class WeatherDataPagerFragment extends Fragment {
     }
 
     private void initFragments() {
-        mFragments = new ArrayList<>(1);
-        mFragmentNames = new ArrayList<>(1);
+        mFragments = new ArrayList<>(2);
+        mFragmentNames = new ArrayList<>(2);
         mFragments.add(new CurrentWeatherFragment());
         mFragmentNames.add(getString(R.string.tub_current_weather));
+        mFragments.add(new ForecastWeatherFragment());
+        mFragmentNames.add(getString(R.string.tub_forecast_weather));
     }
 
     private void initViewPager(View view) {

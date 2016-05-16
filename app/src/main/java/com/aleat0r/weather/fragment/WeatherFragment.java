@@ -3,7 +3,11 @@ package com.aleat0r.weather.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
+import android.view.MenuInflater;
 
+import com.aleat0r.weather.R;
+import com.aleat0r.weather.bus.BusProvider;
 import com.aleat0r.weather.network.ApiConstants;
 import com.aleat0r.weather.network.ApiController;
 
@@ -19,6 +23,18 @@ public class WeatherFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        BusProvider.getInstance().unregister(this);
     }
 
     protected void getWeatherByCoordinates(String queryApi, String longitude, String latitude) {
@@ -47,10 +63,18 @@ public class WeatherFragment extends Fragment {
                 ApiController.getCurrentWeather(params);
                 break;
             case ApiConstants.WEATHER_FORECAST:
+                ApiController.getForecastWeather(params);
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.main_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 }

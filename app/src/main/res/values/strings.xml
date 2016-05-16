@@ -14,6 +14,7 @@
     <string name="weather_map">Weather map</string>
 
     <string name="time_format">HH:mm</string>
+    <string name="forecast_date_format">EEE, d MMM yyyy</string>
     <string name="last_update_date_format">EEE, d MMM, HH:mm</string>
     <string name="last_update_text">last update:</string>
     <string name="update">Update</string>
@@ -28,4 +29,5 @@
     <string name="description_tv_pressure">Atmospheric pressure</string>
 
     <string name="tub_current_weather">Current</string>
+    <string name="tub_forecast_weather">Forecast</string>
 </resources>

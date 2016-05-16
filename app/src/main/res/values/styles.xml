@@ -29,13 +29,19 @@
         <item name="android:textColor">@color/colorTextSecondary</item>
     </style>
 
-
-    <style name="TextViewWithDrawable" parent="BasicTextView">
+    <style name="BasicTextViewWithDrawable" parent="BasicTextView">
         <item name="android:width">0dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:drawablePadding">@dimen/tv_with_big_drawable_padding</item>
         <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="BigTextViewWithDrawable" parent="BasicTextViewWithDrawable">
+        <item name="android:drawablePadding">@dimen/tv_with_small_drawable_padding</item>
         <item name="android:layout_marginTop">@dimen/tv_with_drawable_vertical_margin</item>
+    </style>
+
+    <style name="SmallTextViewWithDrawable" parent="BasicTextViewWithDrawable">
+        <item name="android:drawablePadding">@dimen/tv_with_big_drawable_padding</item>
     </style>
 
     <style name="DrawerTitleTextView" parent="BasicTextView">
@@ -54,6 +60,12 @@
         <item name="tabSelectedTextColor">@color/colorTabTextPrimary</item>
         <item name="tabTextColor">@color/colorTabTextSecondary</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
+    </style>
+
+    <style name="WeatherAttributeSmallImageView">
+        <item name="android:layout_width">@dimen/card_small_image_size</item>
+        <item name="android:layout_height">@dimen/card_small_image_size</item>
+        <item name="android:padding">@dimen/small_padding</item>
     </style>
 
 </resources>
