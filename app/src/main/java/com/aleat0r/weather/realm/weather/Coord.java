@@ -1,9 +1,11 @@
-package com.aleat0r.weather.pojo.weather;
+package com.aleat0r.weather.realm.weather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Coord {
+import io.realm.RealmObject;
+
+public class Coord extends RealmObject {
 
     @SerializedName("lon")
     @Expose

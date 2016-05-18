@@ -94,11 +94,12 @@
             <LinearLayout
                 style="@style/BasicLinearLayout"
                 android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="10">
 
                 <LinearLayout
                     style="@style/BasicLinearLayout"
-                    android:layout_weight="1"
+                    android:layout_weight="3.5"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -110,12 +111,12 @@
                         style="@style/SmallTextView"
                         android:layout_gravity="center"
                         android:text="@string/n_a"
-                        tools:text="some text" />
+                        tools:text="100 %" />
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/BasicLinearLayout"
-                    android:layout_weight="1"
+                    android:layout_weight="3.5"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -127,12 +128,12 @@
                         style="@style/SmallTextView"
                         android:layout_gravity="center"
                         android:text="@string/n_a"
-                        tools:text="some text" />
+                        tools:text="100 %" />
                 </LinearLayout>
 
                 <LinearLayout
                     style="@style/BasicLinearLayout"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -144,7 +145,7 @@
                         style="@style/SmallTextView"
                         android:layout_gravity="center"
                         android:text="@string/n_a"
-                        tools:text="some text" />
+                        tools:text="12.22 m/s" />
 
                 </LinearLayout>
 

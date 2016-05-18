@@ -1,9 +1,11 @@
-package com.aleat0r.weather.pojo.weather.forecast;
+package com.aleat0r.weather.realm.weather.forecast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Temp {
+import io.realm.RealmObject;
+
+public class Temp extends RealmObject{
 
     @SerializedName("day")
     @Expose

@@ -1,12 +1,16 @@
-package com.aleat0r.weather.pojo.weather.forecast;
+package com.aleat0r.weather.realm.weather.forecast;
 
-import java.util.ArrayList;
-
-import com.aleat0r.weather.pojo.weather.Weather;
+import com.aleat0r.weather.realm.weather.Weather;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class List {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
+/**
+ * Created by Aleksandr Kovalenko on 18.05.2016.
+ */
+public class WeatherList extends RealmObject {
 
     @SerializedName("dt")
     @Expose
@@ -22,7 +26,7 @@ public class List {
     private int humidity;
     @SerializedName("weather")
     @Expose
-    private java.util.List<Weather> weather = new ArrayList<Weather>();
+    private RealmList<Weather> weather;
     @SerializedName("speed")
     @Expose
     private double speed;
@@ -95,14 +99,14 @@ public class List {
     /**
      * @return The weather
      */
-    public java.util.List<Weather> getWeather() {
+    public RealmList<Weather> getWeather() {
         return weather;
     }
 
     /**
      * @param weather The weather
      */
-    public void setWeather(java.util.List<Weather> weather) {
+    public void setWeather(RealmList<Weather> weather) {
         this.weather = weather;
     }
 

@@ -12,7 +12,7 @@
     <dimen name="drawer_title_left_padding">16dp</dimen>
 
     <dimen name="temperature_big_text_size">70sp</dimen>
-    <dimen name="small_text_size">10sp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
     <dimen name="small_margin">5dp</dimen>
     <dimen name="small_padding">5dp</dimen>
     <dimen name="weather_type_icon_size">80dp</dimen>
@@ -23,8 +23,8 @@
     <dimen name="tv_with_big_drawable_padding">50dp</dimen>
 
     <dimen name="card_temperature_icon_size">30dp</dimen>
-    <dimen name="card_height">140dp</dimen>
-    <dimen name="card_content_margin">16dp</dimen>
+    <dimen name="card_height">145dp</dimen>
+    <dimen name="card_content_margin">15dp</dimen>
     <dimen name="card_weather_type_icon_size">60dp</dimen>
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="card_small_image_size">20dp</dimen>

@@ -1,22 +1,21 @@
-package com.aleat0r.weather.pojo.weather.current;
+package com.aleat0r.weather.realm.weather.current;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import com.aleat0r.weather.pojo.weather.Coord;
-import com.aleat0r.weather.pojo.weather.Weather;
+import com.aleat0r.weather.realm.weather.Coord;
+import com.aleat0r.weather.realm.weather.Weather;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CurrentWeatherData {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
+public class CurrentWeatherData extends RealmObject {
 
     @SerializedName("coord")
     @Expose
     private Coord coord;
     @SerializedName("weather")
     @Expose
-    private List<Weather> weather = new ArrayList<Weather>();
+    private RealmList<Weather> weather;
     @SerializedName("base")
     @Expose
     private String base;
@@ -48,7 +47,7 @@ public class CurrentWeatherData {
     @Expose
     private int message;
 
-    private Date updateDate;
+    private long updateDate;
 
     /**
      * @return The coord
@@ -67,14 +66,14 @@ public class CurrentWeatherData {
     /**
      * @return The weather
      */
-    public List<Weather> getWeather() {
+    public RealmList<Weather> getWeather() {
         return weather;
     }
 
     /**
      * @param weather The weather
      */
-    public void setWeather(List<Weather> weather) {
+    public void setWeather(RealmList<Weather> weather) {
         this.weather = weather;
     }
 
@@ -218,11 +217,11 @@ public class CurrentWeatherData {
         this.message = message;
     }
 
-    public Date getUpdateDate() {
+    public long getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(long updateDate) {
         this.updateDate = updateDate;
     }
 }

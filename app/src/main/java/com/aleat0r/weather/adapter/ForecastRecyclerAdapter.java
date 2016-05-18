@@ -10,23 +10,24 @@ import android.widget.TextView;
 
 import com.aleat0r.weather.R;
 import com.aleat0r.weather.network.ApiConstants;
+import com.aleat0r.weather.realm.weather.forecast.WeatherList;
 import com.aleat0r.weather.util.Utils;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
+import io.realm.OrderedRealmCollection;
+import io.realm.RealmRecyclerViewAdapter;
 
 /**
  * Created by Aleksandr Kovalenko on 16.05.2016.
  */
-public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecyclerAdapter.ForecastViewHolder> {
+
+public class ForecastRecyclerAdapter extends RealmRecyclerViewAdapter<WeatherList, ForecastRecyclerAdapter.ForecastViewHolder> {
 
     private Context mContext;
-    private List<com.aleat0r.weather.pojo.weather.forecast.List> mForecastList;
 
-    public ForecastRecyclerAdapter(Context context, List<com.aleat0r.weather.pojo.weather.forecast.List> forecastList) {
+    public ForecastRecyclerAdapter(Context context, OrderedRealmCollection<WeatherList> forecastList) {
+        super(context, forecastList, true);
         mContext = context;
-        mForecastList = forecastList;
     }
 
     @Override
@@ -38,13 +39,13 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
     @Override
     public void onBindViewHolder(ForecastViewHolder holder, int position) {
 
-        com.aleat0r.weather.pojo.weather.forecast.List forecastData = mForecastList.get(position);
+        WeatherList forecastData = getData().get(position);
 
         String weatherTypeIconUrl = ApiConstants.ICON_WEATHER_TYPE_URL + forecastData.getWeather().get(0).getIcon() + mContext.getString(R.string.image_format);
         Picasso.with(mContext).load(weatherTypeIconUrl).placeholder(R.drawable.ic_place_holder)
                 .error(R.drawable.ic_error_loading).into(holder.mImgWeatherType);
 
-        holder.mTvDate.setText(Utils.getDateFromUnix(mContext, forecastData.getDt()));
+        holder.mTvDate.setText(Utils.getForecastDateFromUnix(mContext, forecastData.getDt()));
 
         holder.mTvWeatherDescription.setText(forecastData.getWeather().get(0).getDescription());
         holder.mTvTemperature.setText(String.valueOf(forecastData.getTemp().getDay() + mContext.getString(R.string.empty_place) + mContext.getString(R.string.degrees_celsius)));
@@ -57,7 +58,7 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
 
     @Override
     public int getItemCount() {
-        return mForecastList.size();
+        return getData().size();
     }
 
     public class ForecastViewHolder extends RecyclerView.ViewHolder {
@@ -86,3 +87,5 @@ public class ForecastRecyclerAdapter extends RecyclerView.Adapter<ForecastRecycl
         }
     }
 }
+
+

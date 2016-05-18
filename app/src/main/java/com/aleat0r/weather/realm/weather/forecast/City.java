@@ -1,10 +1,12 @@
-package com.aleat0r.weather.pojo.weather.forecast;
+package com.aleat0r.weather.realm.weather.forecast;
 
-import com.aleat0r.weather.pojo.weather.Coord;
+import com.aleat0r.weather.realm.weather.Coord;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class City {
+import io.realm.RealmObject;
+
+public class City extends RealmObject {
 
     @SerializedName("id")
     @Expose

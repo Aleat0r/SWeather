@@ -1,7 +1,7 @@
 package com.aleat0r.weather.network;
 
-import com.aleat0r.weather.pojo.weather.current.CurrentWeatherData;
-import com.aleat0r.weather.pojo.weather.forecast.ForecastWeatherData;
+import com.aleat0r.weather.realm.weather.forecast.ForecastWeatherData;
+import com.aleat0r.weather.realm.weather.current.CurrentWeatherData;
 
 import java.util.Map;
 

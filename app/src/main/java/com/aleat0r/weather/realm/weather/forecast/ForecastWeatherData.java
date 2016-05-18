@@ -1,12 +1,12 @@
-package com.aleat0r.weather.pojo.weather.forecast;
-
-import java.util.ArrayList;
-import java.util.Date;
+package com.aleat0r.weather.realm.weather.forecast;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ForecastWeatherData {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
+public class ForecastWeatherData extends RealmObject {
 
     @SerializedName("city")
     @Expose
@@ -22,9 +22,9 @@ public class ForecastWeatherData {
     private int cnt;
     @SerializedName("list")
     @Expose
-    private java.util.List<List> list = new ArrayList<List>();
+    private RealmList<WeatherList> weatherList;
 
-    private Date updateDate;
+    private long updateDate;
 
     /**
      * @return The city
@@ -85,23 +85,23 @@ public class ForecastWeatherData {
     /**
      * @return The list
      */
-    public java.util.List<List> getList() {
-        return list;
+    public RealmList<WeatherList> getWeatherList() {
+        return weatherList;
     }
 
     /**
      * @param list The list
      */
-    public void setList(java.util.List<List> list) {
-        this.list = list;
+    public void setWeatherList(RealmList<WeatherList> list) {
+        this.weatherList = weatherList;
     }
 
 
-    public Date getUpdateDate() {
+    public long getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(long updateDate) {
         this.updateDate = updateDate;
     }
 

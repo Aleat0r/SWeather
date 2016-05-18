@@ -3,10 +3,9 @@ package com.aleat0r.weather.network;
 import com.aleat0r.weather.bus.BusProvider;
 import com.aleat0r.weather.bus.event.ErrorEventCurrentWeather;
 import com.aleat0r.weather.bus.event.ErrorEventForecastWeather;
-import com.aleat0r.weather.pojo.weather.current.CurrentWeatherData;
-import com.aleat0r.weather.pojo.weather.forecast.ForecastWeatherData;
+import com.aleat0r.weather.realm.weather.current.CurrentWeatherData;
+import com.aleat0r.weather.realm.weather.forecast.ForecastWeatherData;
 
-import java.util.Date;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -29,7 +28,7 @@ public class ApiController {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(ApiConstants.BASE_URL)
                     .client(getLoggingInterceptor())
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(CustomGsonParser.returnCustomParser()))
                     .build();
 
             openWeatherApiService = retrofit.create(OpenWeatherApiService.class);
@@ -51,7 +50,7 @@ public class ApiController {
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
                 if (response.isSuccessful()) {
                     CurrentWeatherData currentWeatherData = response.body();
-                    currentWeatherData.setUpdateDate(new Date());
+                    currentWeatherData.setUpdateDate(System.currentTimeMillis());
                     BusProvider.getInstance().post(currentWeatherData);
                 }
             }
@@ -71,7 +70,7 @@ public class ApiController {
             public void onResponse(Call<ForecastWeatherData> call, Response<ForecastWeatherData> response) {
                 if (response.isSuccessful()) {
                     ForecastWeatherData forecastWeatherData = response.body();
-                    forecastWeatherData.setUpdateDate(new Date());
+                    forecastWeatherData.setUpdateDate(System.currentTimeMillis());
                     BusProvider.getInstance().post(forecastWeatherData);
                 }
             }

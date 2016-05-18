@@ -16,12 +16,13 @@ import com.aleat0r.weather.R;
 import com.aleat0r.weather.activity.MainActivity;
 import com.aleat0r.weather.bus.event.ErrorEventCurrentWeather;
 import com.aleat0r.weather.network.ApiConstants;
-import com.aleat0r.weather.pojo.weather.current.CurrentWeatherData;
+import com.aleat0r.weather.realm.weather.current.CurrentWeatherData;
 import com.aleat0r.weather.util.Utils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by Aleksandr Kovalenko on 14.05.2016.
@@ -45,6 +46,9 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
 
     private ProgressDialog mProgressDialog;
 
+    private Realm mRealm;
+    private RealmResults<CurrentWeatherData> mRealmResults;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -56,14 +60,16 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mCoordinatorLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_current_weather, container, false);
-        initViews(mCoordinatorLayout);
-        updateWeatherInfo();
-        return mCoordinatorLayout;
-    }
 
-    private void updateWeatherInfo() {
-        mProgressDialog.show();
-        super.getWeatherByCity(ApiConstants.WEATHER_CURRENT, ApiConstants.DEFAULT_CITY);
+        initViews(mCoordinatorLayout);
+
+        mRealm = Realm.getDefaultInstance();
+        setDataFromRealm();
+        if (mRealmResults.size() == 0) {
+            updateWeatherInfo();
+        }
+
+        return mCoordinatorLayout;
     }
 
     private void initViews(View view) {
@@ -86,6 +92,18 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
         mTvSunrise.setOnClickListener(this);
         mTvSunset.setOnClickListener(this);
         mTvPressure.setOnClickListener(this);
+    }
+
+    private void setDataFromRealm() {
+        mRealmResults = mRealm.where(CurrentWeatherData.class).findAll();
+        if (mRealmResults.size() > 0) {
+            setWeatherData(mRealmResults.get(0));
+        }
+    }
+
+    private void updateWeatherInfo() {
+        mProgressDialog.show();
+        super.getWeatherByCity(ApiConstants.WEATHER_CURRENT, ApiConstants.DEFAULT_CITY);
     }
 
     @Override
@@ -117,7 +135,8 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     @Subscribe
     public void onWeatherDataEvent(CurrentWeatherData currentWeatherData) {
         setWeatherData(currentWeatherData);
-        setDateLastUpdate(currentWeatherData.getUpdateDate());
+        deleteOldWeatherCurrentData();
+        setInRealm(currentWeatherData);
         mProgressDialog.dismiss();
         Utils.showMessage(mCoordinatorLayout, R.string.update_success);
     }
@@ -128,10 +147,32 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
         Utils.showMessage(mCoordinatorLayout, R.string.error_update);
     }
 
+    private void setInRealm(CurrentWeatherData currentWeatherData) {
+        mRealm.beginTransaction();
+        mRealm.copyToRealm(currentWeatherData);
+        mRealm.commitTransaction();
+    }
+
+    private void deleteOldWeatherCurrentData() {
+        if (mRealmResults.size() > 0) {
+            mRealm.beginTransaction();
+            CurrentWeatherData oldCurrentWeatherData = mRealmResults.get(0);
+            oldCurrentWeatherData.getWeather().deleteAllFromRealm();
+            oldCurrentWeatherData.getCoord().deleteFromRealm();
+            oldCurrentWeatherData.getMain().deleteFromRealm();
+            oldCurrentWeatherData.getWind().deleteFromRealm();
+            oldCurrentWeatherData.getClouds().deleteFromRealm();
+            oldCurrentWeatherData.getSys().deleteFromRealm();
+            oldCurrentWeatherData.deleteFromRealm();
+            mRealm.commitTransaction();
+        }
+    }
+
     private void setWeatherData(CurrentWeatherData weatherData) {
         String weatherTypeIconUrl = ApiConstants.ICON_WEATHER_TYPE_URL + weatherData.getWeather().get(0).getIcon() + getString(R.string.image_format);
         Picasso.with(getActivity()).load(weatherTypeIconUrl).placeholder(R.drawable.ic_place_holder)
                 .error(R.drawable.ic_error_loading).into(mImgWeatherType);
+
         mTvWeatherDescription.setText(weatherData.getWeather().get(0).getDescription());
         mTvTemperature.setText(String.valueOf(weatherData.getMain().getTemp() + getString(R.string.empty_place) + getString(R.string.degrees_celsius)));
         mTvWind.setText(String.valueOf(weatherData.getWind().getSpeed()) + getString(R.string.empty_place) + getString(R.string.metric_speed));
@@ -141,11 +182,13 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
         mTvSunset.setText(Utils.getTimeFromUnix(getActivity(), weatherData.getSys().getSunset()));
         mTvPressure.setText(String.valueOf(weatherData.getMain().getPressure()) + getString(R.string.empty_place) + getString(R.string.hectopascal));
 
+        setDateLastUpdate(weatherData.getUpdateDate());
+
         mToolbar.setTitle(weatherData.getName());
     }
 
-    private void setDateLastUpdate(Date date) {
-        mTvLastUpdate.setText(Utils.convertDateToString(getActivity(), date));
+    private void setDateLastUpdate(long date) {
+        mTvLastUpdate.setText(Utils.getLastUpdateDateFromMillis(getActivity(), date));
     }
 
     @Override
@@ -157,6 +200,12 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mRealm.close();
     }
 }
 

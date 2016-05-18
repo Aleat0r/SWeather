@@ -1,9 +1,11 @@
-package com.aleat0r.weather.pojo.weather.current;
+package com.aleat0r.weather.realm.weather.current;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Sys {
+import io.realm.RealmObject;
+
+public class Sys extends RealmObject {
 
     @SerializedName("message")
     @Expose

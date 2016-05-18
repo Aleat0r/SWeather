@@ -16,14 +16,17 @@ import android.widget.TextView;
 import com.aleat0r.weather.R;
 import com.aleat0r.weather.activity.MainActivity;
 import com.aleat0r.weather.adapter.ForecastRecyclerAdapter;
-import com.aleat0r.weather.bus.event.ErrorEventCurrentWeather;
 import com.aleat0r.weather.bus.event.ErrorEventForecastWeather;
 import com.aleat0r.weather.network.ApiConstants;
-import com.aleat0r.weather.pojo.weather.forecast.ForecastWeatherData;
+import com.aleat0r.weather.realm.weather.forecast.City;
+import com.aleat0r.weather.realm.weather.forecast.ForecastWeatherData;
+import com.aleat0r.weather.realm.weather.forecast.WeatherList;
 import com.aleat0r.weather.util.Utils;
 import com.squareup.otto.Subscribe;
 
-import java.util.Date;
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 
 /**
  * Created by Aleksandr Kovalenko on 16.05.2016.
@@ -38,6 +41,9 @@ public class ForecastWeatherFragment extends WeatherFragment {
 
     private ProgressDialog mProgressDialog;
 
+    private Realm mRealm;
+    private RealmResults<ForecastWeatherData> mRealmResults;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -49,8 +55,15 @@ public class ForecastWeatherFragment extends WeatherFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mCoordinatorLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_forecast_weather, container, false);
+
         initViews(mCoordinatorLayout);
-        updateWeatherInfo();
+
+        mRealm = Realm.getDefaultInstance();
+        setDataFromRealm();
+        if (mRealmResults.size() == 0) {
+            updateWeatherInfo();
+        }
+
         return mCoordinatorLayout;
     }
 
@@ -65,6 +78,13 @@ public class ForecastWeatherFragment extends WeatherFragment {
         mRvForecast.setLayoutManager(layoutManager);
     }
 
+    private void setDataFromRealm() {
+        mRealmResults = mRealm.where(ForecastWeatherData.class).findAll();
+        if (mRealmResults.size() > 0) {
+            setWeatherData(mRealmResults.get(0));
+        }
+    }
+
     private void updateWeatherInfo() {
         mProgressDialog.show();
         super.getWeatherByCity(ApiConstants.WEATHER_FORECAST, ApiConstants.DEFAULT_CITY);
@@ -73,7 +93,8 @@ public class ForecastWeatherFragment extends WeatherFragment {
     @Subscribe
     public void onWeatherDataEvent(ForecastWeatherData forecastData) {
         setWeatherData(forecastData);
-        setDateLastUpdate(forecastData.getUpdateDate());
+        deleteOldWeatherCurrentData();
+        setInRealm(forecastData);
         mProgressDialog.dismiss();
         Utils.showMessage(mCoordinatorLayout, R.string.update_success);
     }
@@ -84,14 +105,40 @@ public class ForecastWeatherFragment extends WeatherFragment {
         Utils.showMessage(mCoordinatorLayout, R.string.error_update);
     }
 
+    private void setInRealm(ForecastWeatherData forecastData) {
+        mRealm.beginTransaction();
+        mRealm.copyToRealm(forecastData);
+        mRealm.commitTransaction();
+    }
+
+    private void deleteOldWeatherCurrentData() {
+        if (mRealmResults.size() > 0) {
+            mRealm.beginTransaction();
+            ForecastWeatherData oldForecastWeatherData = mRealmResults.get(0);
+            City city = oldForecastWeatherData.getCity();
+            city.getCoord().deleteFromRealm();
+            city.deleteFromRealm();
+            RealmList<WeatherList> weatherLists = oldForecastWeatherData.getWeatherList();
+            for (WeatherList list : weatherLists) {
+                list.getTemp().deleteFromRealm();
+                list.getWeather().deleteAllFromRealm();
+            }
+            weatherLists.deleteAllFromRealm();
+            oldForecastWeatherData.deleteFromRealm();
+            mRealm.commitTransaction();
+        }
+    }
+
     private void setWeatherData(ForecastWeatherData forecastData) {
         mToolbar.setTitle(forecastData.getCity().getName());
-        ForecastRecyclerAdapter forecastRecyclerAdapter = new ForecastRecyclerAdapter(getActivity(), forecastData.getList());
+        setDateLastUpdate(forecastData.getUpdateDate());
+
+        ForecastRecyclerAdapter forecastRecyclerAdapter = new ForecastRecyclerAdapter(getActivity(), forecastData.getWeatherList());
         mRvForecast.setAdapter(forecastRecyclerAdapter);
     }
 
-    private void setDateLastUpdate(Date date) {
-        mTvLastUpdate.setText(Utils.convertDateToString(getActivity(), date));
+    private void setDateLastUpdate(long date) {
+        mTvLastUpdate.setText(Utils.getLastUpdateDateFromMillis(getActivity(), date));
     }
 
     @Override
@@ -103,5 +150,11 @@ public class ForecastWeatherFragment extends WeatherFragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mRealm.close();
     }
 }
