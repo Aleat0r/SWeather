@@ -1,4 +1,4 @@
-package com.aleat0r.weather.fragment;
+package com.aleat0r.weather.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -72,8 +72,8 @@ public class WeatherFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.main_menu, menu);
+        menu.removeItem(R.id.menu_update);
+        inflater.inflate(R.menu.weather_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

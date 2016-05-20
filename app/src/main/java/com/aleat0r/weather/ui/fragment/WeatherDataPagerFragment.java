@@ -1,4 +1,4 @@
-package com.aleat0r.weather.fragment;
+package com.aleat0r.weather.ui.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aleat0r.weather.R;
-import com.aleat0r.weather.adapter.WeatherPagerAdapter;
+import com.aleat0r.weather.ui.adapter.WeatherPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

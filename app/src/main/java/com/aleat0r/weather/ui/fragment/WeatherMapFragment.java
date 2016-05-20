@@ -1,4 +1,4 @@
-package com.aleat0r.weather.fragment;
+package com.aleat0r.weather.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.aleat0r.weather.R;
-import com.aleat0r.weather.activity.MainActivity;
+import com.aleat0r.weather.ui.activity.MainActivity;
 import com.aleat0r.weather.util.Constants;
 
 /**

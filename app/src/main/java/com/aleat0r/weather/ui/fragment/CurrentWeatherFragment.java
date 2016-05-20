@@ -1,4 +1,4 @@
-package com.aleat0r.weather.fragment;
+package com.aleat0r.weather.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aleat0r.weather.R;
-import com.aleat0r.weather.activity.MainActivity;
+import com.aleat0r.weather.ui.activity.MainActivity;
 import com.aleat0r.weather.bus.event.ErrorEventCurrentWeather;
+import com.aleat0r.weather.bus.event.UpdateEvent;
 import com.aleat0r.weather.network.ApiConstants;
 import com.aleat0r.weather.realm.weather.current.CurrentWeatherData;
+import com.aleat0r.weather.util.PreferencesUtils;
 import com.aleat0r.weather.util.Utils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
@@ -64,9 +66,12 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
         initViews(mCoordinatorLayout);
 
         mRealm = Realm.getDefaultInstance();
-        setDataFromRealm();
+        mRealmResults = mRealm.where(CurrentWeatherData.class).findAll();
+
         if (mRealmResults.size() == 0) {
             updateWeatherInfo();
+        } else {
+            setWeatherData(mRealmResults.get(0));
         }
 
         return mCoordinatorLayout;
@@ -94,16 +99,9 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
         mTvPressure.setOnClickListener(this);
     }
 
-    private void setDataFromRealm() {
-        mRealmResults = mRealm.where(CurrentWeatherData.class).findAll();
-        if (mRealmResults.size() > 0) {
-            setWeatherData(mRealmResults.get(0));
-        }
-    }
-
     private void updateWeatherInfo() {
         mProgressDialog.show();
-        super.getWeatherByCity(ApiConstants.WEATHER_CURRENT, ApiConstants.DEFAULT_CITY);
+        super.getWeatherByCity(ApiConstants.WEATHER_CURRENT, PreferencesUtils.getLocationName(getActivity()));
     }
 
     @Override
@@ -130,6 +128,11 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
             default:
                 break;
         }
+    }
+
+    @Subscribe
+    public void updateWeatherInfo(UpdateEvent updateEvent) {
+        updateWeatherInfo();
     }
 
     @Subscribe
@@ -203,8 +206,8 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         mRealm.close();
     }
 }

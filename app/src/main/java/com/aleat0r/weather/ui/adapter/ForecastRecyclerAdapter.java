@@ -1,4 +1,4 @@
-package com.aleat0r.weather.adapter;
+package com.aleat0r.weather.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

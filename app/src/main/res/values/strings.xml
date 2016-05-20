@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SWeather</string>
 
+    <string name="GOOGLE_API_KEY">AIzaSyDzCdQ7pSRrQSDqmR94YVs1Q82lUVn3Ejg</string>
+
     <string name="degrees_celsius">°C</string>
     <string name="percent">%</string>
     <string name="metric_speed">m/s</string>
@@ -13,11 +15,13 @@
     <string name="weather_data">Weather data</string>
     <string name="weather_map">Weather map</string>
 
+    <string name="menu_update">Update</string>
+    <string name="menu_choice_location">Choice of location</string>
+
     <string name="time_format">HH:mm</string>
     <string name="forecast_date_format">EEE, d MMM yyyy</string>
     <string name="last_update_date_format">EEE, d MMM, HH:mm</string>
     <string name="last_update_text">last update:</string>
-    <string name="update">Update</string>
     <string name="update_success">Information update is complete</string>
     <string name="error_update">Error!\nPlease check your internet connection</string>
 
@@ -32,4 +36,12 @@
     <string name="tub_forecast_weather">Forecast</string>
 
     <string name="progress_dialog_message">Please wait. Downloading...</string>
+
+    <string name="location_activity_label">Choice of location</string>
+    <string name="location_tittle_text">Please select location</string>
+    <string name="autocomplete_hint">Enter city name</string>
+    <string name="error_connect_google_api">Could not connect to Google API Client: Error</string>
+    <string name="error_contacting_API">Error contacting API:</string>
+
+
 </resources>

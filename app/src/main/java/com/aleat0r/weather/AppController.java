@@ -13,7 +13,12 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        configureRealm();
+    }
+
+    private void configureRealm() {
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfiguration);
     }
+
 }

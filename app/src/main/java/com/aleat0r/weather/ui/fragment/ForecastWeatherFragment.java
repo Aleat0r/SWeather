@@ -1,4 +1,4 @@
-package com.aleat0r.weather.fragment;
+package com.aleat0r.weather.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,13 +14,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aleat0r.weather.R;
-import com.aleat0r.weather.activity.MainActivity;
-import com.aleat0r.weather.adapter.ForecastRecyclerAdapter;
+import com.aleat0r.weather.ui.activity.MainActivity;
+import com.aleat0r.weather.ui.adapter.ForecastRecyclerAdapter;
 import com.aleat0r.weather.bus.event.ErrorEventForecastWeather;
+import com.aleat0r.weather.bus.event.UpdateEvent;
 import com.aleat0r.weather.network.ApiConstants;
 import com.aleat0r.weather.realm.weather.forecast.City;
 import com.aleat0r.weather.realm.weather.forecast.ForecastWeatherData;
 import com.aleat0r.weather.realm.weather.forecast.WeatherList;
+import com.aleat0r.weather.util.PreferencesUtils;
 import com.aleat0r.weather.util.Utils;
 import com.squareup.otto.Subscribe;
 
@@ -59,9 +61,12 @@ public class ForecastWeatherFragment extends WeatherFragment {
         initViews(mCoordinatorLayout);
 
         mRealm = Realm.getDefaultInstance();
-        setDataFromRealm();
+        mRealmResults = mRealm.where(ForecastWeatherData.class).findAll();
+
         if (mRealmResults.size() == 0) {
             updateWeatherInfo();
+        } else {
+            setWeatherData(mRealmResults.get(0));
         }
 
         return mCoordinatorLayout;
@@ -78,16 +83,14 @@ public class ForecastWeatherFragment extends WeatherFragment {
         mRvForecast.setLayoutManager(layoutManager);
     }
 
-    private void setDataFromRealm() {
-        mRealmResults = mRealm.where(ForecastWeatherData.class).findAll();
-        if (mRealmResults.size() > 0) {
-            setWeatherData(mRealmResults.get(0));
-        }
-    }
-
     private void updateWeatherInfo() {
         mProgressDialog.show();
-        super.getWeatherByCity(ApiConstants.WEATHER_FORECAST, ApiConstants.DEFAULT_CITY);
+        super.getWeatherByCity(ApiConstants.WEATHER_FORECAST, PreferencesUtils.getLocationName(getActivity()));
+    }
+
+    @Subscribe
+    public void updateWeatherInfo(UpdateEvent updateEvent) {
+        updateWeatherInfo();
     }
 
     @Subscribe
@@ -153,8 +156,8 @@ public class ForecastWeatherFragment extends WeatherFragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         mRealm.close();
     }
 }

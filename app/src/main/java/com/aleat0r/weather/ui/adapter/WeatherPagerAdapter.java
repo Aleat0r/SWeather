@@ -1,4 +1,4 @@
-package com.aleat0r.weather.adapter;
+package com.aleat0r.weather.ui.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
