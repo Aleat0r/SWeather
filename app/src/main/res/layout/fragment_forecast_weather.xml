@@ -16,7 +16,8 @@
 
             <TextView
                 style="@style/SmallTextView"
-                android:text="@string/last_update_text" />
+                android:text="@string/last_update_text"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_last_update"

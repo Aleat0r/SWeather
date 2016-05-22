@@ -35,7 +35,7 @@
     <string name="tub_current_weather">Current</string>
     <string name="tub_forecast_weather">Forecast</string>
 
-    <string name="progress_dialog_message">Please wait. Downloading...</string>
+    <string name="progress_dialog_message">Please wait...</string>
 
     <string name="location_activity_label">Choice of location</string>
     <string name="location_tittle_text">Please select location</string>

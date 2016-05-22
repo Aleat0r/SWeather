@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/card_height"
-    app:cardBackgroundColor="@color/itemCardColor"
+    app:cardBackgroundColor="@color/colorItemCard"
     app:cardCornerRadius="@dimen/card_corner_radius"
     app:cardUseCompatPadding="true">
 
@@ -30,7 +30,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/n_a"
                 android:textStyle="bold"
-                tools:text="23.4 C" />
+                tools:text="23.4 °C" />
 
         </RelativeLayout>
 
@@ -38,7 +38,7 @@
             android:id="@+id/divider"
             android:layout_width="@dimen/divider_size"
             android:layout_height="match_parent"
-            android:background="@color/dividerColor" />
+            android:background="@color/colorDivider" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -78,16 +78,16 @@
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/small_margin"
                     android:text="@string/n_a"
-                    android:textColor="@color/minTemperatureColor"
-                    tools:text="-28C" />
+                    android:textColor="@color/colorMinTemperature"
+                    tools:text="-28 °C" />
 
                 <TextView
                     android:id="@+id/tv_max_temperature"
                     style="@style/BasicTextView"
                     android:layout_gravity="center"
                     android:text="@string/n_a"
-                    android:textColor="@color/maxTemperatureColor"
-                    tools:text="12C" />
+                    android:textColor="@color/colorMaxTemperature"
+                    tools:text="12 °C" />
 
             </LinearLayout>
 

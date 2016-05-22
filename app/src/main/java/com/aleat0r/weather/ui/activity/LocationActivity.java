@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.aleat0r.weather.R;
 import com.aleat0r.weather.ui.adapter.PlaceAutocompleteAdapter;
 import com.aleat0r.weather.util.PreferencesUtils;
+import com.aleat0r.weather.util.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.AutocompleteFilter;
@@ -68,6 +69,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
             String locationName = item.getFullText(null).toString();
             PreferencesUtils.setLocationName(LocationActivity.this, locationName);
             setResult(RESULT_OK);
+            Utils.hideKeyboard(LocationActivity.this);
             LocationActivity.this.finish();
         }
     };

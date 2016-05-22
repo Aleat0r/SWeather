@@ -1,22 +1,24 @@
 package com.aleat0r.weather.util;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.aleat0r.weather.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Locale;
 
 /**
  * Created by Aleksandr Kovalenko on 14.05.2016.
  */
 public class Utils {
     private static String getDateFromMillis(Context context, int format, long millis) {
-        String date = new SimpleDateFormat(context.getString(format)).format(new Date(millis));
+        String date = new SimpleDateFormat(context.getString(format), Locale.ENGLISH).format(new Date(millis));
         return date;
     }
 
@@ -47,5 +49,12 @@ public class Utils {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(context.getResources().getString(R.string.progress_dialog_message));
         return progressDialog;
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        if (activity != null && activity.getWindow() != null && activity.getWindow().getDecorView() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
+        }
     }
 }
