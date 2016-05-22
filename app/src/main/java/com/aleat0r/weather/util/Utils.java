@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.aleat0r.weather.R;
 
@@ -38,8 +39,11 @@ public class Utils {
     }
 
 
-    public static void showMessage(View view, int message) {
-        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+    public static void showMessage(View view, String message) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        TextView snackbarTextView = (TextView)snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+        snackbarTextView.setMaxLines(Constants.SNACK_BAR_MAX_LINES);
+        snackbar.show();
     }
 
     public static ProgressDialog createProgressDialog(Context context) {

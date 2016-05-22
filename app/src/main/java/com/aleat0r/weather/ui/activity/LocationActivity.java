@@ -1,6 +1,7 @@
 package com.aleat0r.weather.ui.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 
 import com.aleat0r.weather.R;
 import com.aleat0r.weather.ui.adapter.PlaceAutocompleteAdapter;
@@ -27,11 +27,14 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
 
     protected GoogleApiClient mGoogleApiClient;
     private PlaceAutocompleteAdapter mAdapter;
+    private CoordinatorLayout mRootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locatin);
+
+        mRootView = (CoordinatorLayout) findViewById(R.id.coord_view);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, 0, this)
@@ -58,7 +61,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         autocompleteView.setOnItemClickListener(mAutocompleteClickListener);
 
         AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder().setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES).build();
-        mAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, autocompleteFilter);
+        mAdapter = new PlaceAutocompleteAdapter(this, mRootView, mGoogleApiClient, autocompleteFilter);
         autocompleteView.setAdapter(mAdapter);
     }
 
@@ -76,8 +79,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(this, getString(R.string.error_connect_google_api) + getString(R.string.empty_place) + connectionResult.getErrorCode(),
-                Toast.LENGTH_SHORT).show();
+        Utils.showMessage(mRootView, getString(R.string.error_connect_google_api) + getString(R.string.empty_place) + connectionResult.getErrorCode());
     }
 
     @Override

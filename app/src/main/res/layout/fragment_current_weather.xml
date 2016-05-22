@@ -66,14 +66,16 @@
             <TextView
                 android:id="@+id/tv_wind"
                 style="@style/BigTextViewWithDrawable"
-                android:drawableLeft="@drawable/ic_wind"
+                android:clickable="true"
+                android:drawableLeft="@drawable/selector_ic_wind"
                 android:text="@string/n_a"
                 tools:text="some text" />
 
             <TextView
                 android:id="@+id/tv_sunrise"
                 style="@style/BigTextViewWithDrawable"
-                android:drawableLeft="@drawable/ic_sunrise"
+                android:clickable="true"
+                android:drawableLeft="@drawable/selector_ic_sunrise"
                 android:text="@string/n_a"
                 tools:text="some text" />
 
@@ -86,14 +88,16 @@
             <TextView
                 android:id="@+id/tv_humidity"
                 style="@style/BigTextViewWithDrawable"
-                android:drawableLeft="@drawable/ic_humidity"
+                android:clickable="true"
+                android:drawableLeft="@drawable/selector_ic_humidity"
                 android:text="@string/n_a"
                 tools:text="some text" />
 
             <TextView
                 android:id="@+id/tv_sunset"
                 style="@style/BigTextViewWithDrawable"
-                android:drawableLeft="@drawable/ic_sunset"
+                android:clickable="true"
+                android:drawableLeft="@drawable/selector_ic_sunset"
                 android:text="@string/n_a"
                 tools:text="some text" />
 
@@ -106,14 +110,16 @@
             <TextView
                 android:id="@+id/tv_cloudiness"
                 style="@style/BigTextViewWithDrawable"
-                android:drawableLeft="@drawable/ic_cloudiness"
+                android:clickable="true"
+                android:drawableLeft="@drawable/selector_ic_cloudiness"
                 android:text="@string/n_a"
                 tools:text="some text" />
 
             <TextView
                 android:id="@+id/tv_pressure"
                 style="@style/BigTextViewWithDrawable"
-                android:drawableLeft="@drawable/ic_pressure"
+                android:clickable="true"
+                android:drawableLeft="@drawable/selector_ic_pressure"
                 android:text="@string/n_a"
                 tools:text="some text" />
 

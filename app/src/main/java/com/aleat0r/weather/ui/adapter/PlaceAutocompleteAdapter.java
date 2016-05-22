@@ -1,6 +1,7 @@
 package com.aleat0r.weather.ui.adapter;
 
 import com.aleat0r.weather.R;
+import com.aleat0r.weather.util.Utils;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
@@ -20,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -47,11 +47,16 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
      */
     private AutocompleteFilter mPlaceFilter;
 
+    private Context mContext;
+    private View mRootView;
+
     /**
      * Initializes with a resource for text rows and autocomplete query bounds.
      */
-    public PlaceAutocompleteAdapter(Context context, GoogleApiClient googleApiClient, AutocompleteFilter filter) {
+    public PlaceAutocompleteAdapter(Context context, View rootView, GoogleApiClient googleApiClient, AutocompleteFilter filter) {
         super(context, android.R.layout.simple_expandable_list_item_2, android.R.id.text1);
+        mContext = context;
+        mRootView = rootView;
         mGoogleApiClient = googleApiClient;
         mPlaceFilter = filter;
     }
@@ -151,8 +156,8 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
             // Confirm that the query completed successfully, otherwise return null
             final Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
-                Toast.makeText(getContext(), getContext().getString(R.string.error_contacting_API) + getContext().getString(R.string.empty_place) +
-                        status.toString(), Toast.LENGTH_SHORT).show();
+                Utils.showMessage(mRootView, mContext.getString(R.string.error_contacting_API) + mContext.getString(R.string.empty_place) +
+                        status.getStatusMessage());
                 autocompletePredictions.release();
                 return null;
             }

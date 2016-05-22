@@ -38,7 +38,7 @@ public class ForecastWeatherFragment extends WeatherFragment {
     private RecyclerView mRvForecast;
     private TextView mTvLastUpdate;
 
-    private CoordinatorLayout mCoordinatorLayout;
+    private CoordinatorLayout mRootView;
     private Toolbar mToolbar;
 
     private ProgressDialog mProgressDialog;
@@ -56,9 +56,9 @@ public class ForecastWeatherFragment extends WeatherFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mCoordinatorLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_forecast_weather, container, false);
+        mRootView = (CoordinatorLayout) inflater.inflate(R.layout.fragment_forecast_weather, container, false);
 
-        initViews(mCoordinatorLayout);
+        initViews(mRootView);
 
         mRealm = Realm.getDefaultInstance();
         mRealmResults = mRealm.where(ForecastWeatherData.class).findAll();
@@ -69,7 +69,7 @@ public class ForecastWeatherFragment extends WeatherFragment {
             setWeatherData(mRealmResults.get(0));
         }
 
-        return mCoordinatorLayout;
+        return mRootView;
     }
 
     private void initViews(View view) {
@@ -99,13 +99,13 @@ public class ForecastWeatherFragment extends WeatherFragment {
         deleteOldWeatherCurrentData();
         setInRealm(forecastData);
         mProgressDialog.dismiss();
-        Utils.showMessage(mCoordinatorLayout, R.string.update_success);
+        Utils.showMessage(mRootView, getString(R.string.update_success));
     }
 
     @Subscribe
     public void onErrorEvent(ErrorEventForecastWeather errorEventForecastWeather) {
         mProgressDialog.dismiss();
-        Utils.showMessage(mCoordinatorLayout, R.string.error_update);
+        Utils.showMessage(mRootView, getString(R.string.error_update));
     }
 
     private void setInRealm(ForecastWeatherData forecastData) {

@@ -10,7 +10,7 @@ public class Constants {
     public static final int WEATHER_DATA_PAGER_FRAGMENT = 0;
     public static final int WEATHER_MAP_FRAGMENT = 1;
 
-    public static final String LOCATION_NAME_PREFERENCE = "location_name";
-
     public static final int LOCATION_ACTIVITY_REQUEST_CODE = 0;
+
+    public static final int SNACK_BAR_MAX_LINES = 5;
 }

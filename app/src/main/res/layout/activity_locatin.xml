@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coord_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
     tools:context=".ui.activity.LocationActivity">
 
     <include
@@ -14,17 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/BasicLinearLayout"
+        android:layout_margin="@dimen/activity_margin"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <AutoCompleteTextView
-            android:id="@+id/autocomplete_places"
-            style="@style/AutoCompleteTextView"
-            android:hint="@string/autocomplete_hint"
-            android:inputType="textPersonName" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_places"
+                style="@style/AutoCompleteTextView"
+                android:hint="@string/autocomplete_hint"
+                android:inputType="textPersonName" />
 
-</LinearLayout>
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

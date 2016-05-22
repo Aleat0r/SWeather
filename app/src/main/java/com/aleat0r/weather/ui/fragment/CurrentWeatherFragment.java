@@ -43,7 +43,7 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     private TextView mTvPressure;
     private TextView mTvLastUpdate;
 
-    private CoordinatorLayout mCoordinatorLayout;
+    private CoordinatorLayout mRootView;
     private Toolbar mToolbar;
 
     private ProgressDialog mProgressDialog;
@@ -61,9 +61,9 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mCoordinatorLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_current_weather, container, false);
+        mRootView = (CoordinatorLayout) inflater.inflate(R.layout.fragment_current_weather, container, false);
 
-        initViews(mCoordinatorLayout);
+        initViews(mRootView);
 
         mRealm = Realm.getDefaultInstance();
         mRealmResults = mRealm.where(CurrentWeatherData.class).findAll();
@@ -74,7 +74,7 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
             setWeatherData(mRealmResults.get(0));
         }
 
-        return mCoordinatorLayout;
+        return mRootView;
     }
 
     private void initViews(View view) {
@@ -108,22 +108,22 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_wind:
-                Utils.showMessage(mCoordinatorLayout, R.string.description_tv_wind);
+                Utils.showMessage(mRootView, getString(R.string.description_tv_wind));
                 break;
             case R.id.tv_humidity:
-                Utils.showMessage(mCoordinatorLayout, R.string.description_tv_humidity);
+                Utils.showMessage(mRootView, getString(R.string.description_tv_humidity));
                 break;
             case R.id.tv_cloudiness:
-                Utils.showMessage(mCoordinatorLayout, R.string.description_tv_cloudiness);
+                Utils.showMessage(mRootView, getString(R.string.description_tv_cloudiness));
                 break;
             case R.id.tv_sunrise:
-                Utils.showMessage(mCoordinatorLayout, (R.string.description_tv_sunrise));
+                Utils.showMessage(mRootView, getString(R.string.description_tv_sunrise));
                 break;
             case R.id.tv_sunset:
-                Utils.showMessage(mCoordinatorLayout, R.string.description_tv_sunset);
+                Utils.showMessage(mRootView, getString(R.string.description_tv_sunset));
                 break;
             case R.id.tv_pressure:
-                Utils.showMessage(mCoordinatorLayout, R.string.description_tv_pressure);
+                Utils.showMessage(mRootView, getString(R.string.description_tv_pressure));
                 break;
             default:
                 break;
@@ -141,13 +141,13 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
         deleteOldWeatherCurrentData();
         setInRealm(currentWeatherData);
         mProgressDialog.dismiss();
-        Utils.showMessage(mCoordinatorLayout, R.string.update_success);
+        Utils.showMessage(mRootView, getString(R.string.update_success));
     }
 
     @Subscribe
     public void onErrorEvent(ErrorEventCurrentWeather errorEventCurrentWeather) {
         mProgressDialog.dismiss();
-        Utils.showMessage(mCoordinatorLayout, R.string.error_update);
+        Utils.showMessage(mRootView, getString(R.string.error_update));
     }
 
     private void setInRealm(CurrentWeatherData currentWeatherData) {
