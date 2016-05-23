@@ -101,7 +101,8 @@ public class CurrentWeatherFragment extends WeatherFragment implements View.OnCl
 
     private void updateWeatherInfo() {
         mProgressDialog.show();
-        super.getWeatherByCity(ApiConstants.WEATHER_CURRENT, PreferencesUtils.getLocationName(getActivity()));
+        super.getWeatherByCoordinates(ApiConstants.WEATHER_CURRENT, PreferencesUtils.getLocationLongitude(getActivity()),
+                PreferencesUtils.getLocationLatitude(getActivity()));
     }
 
     @Override

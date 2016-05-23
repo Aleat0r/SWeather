@@ -1,5 +1,6 @@
 package com.aleat0r.weather.ui.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
@@ -9,25 +10,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import com.aleat0r.weather.R;
 import com.aleat0r.weather.ui.adapter.PlaceAutocompleteAdapter;
 import com.aleat0r.weather.util.PreferencesUtils;
+import com.aleat0r.weather.util.SingleShotLocationProvider;
 import com.aleat0r.weather.util.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by Aleksandr Kovalenko on 19.05.2016.
  */
-public class LocationActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class LocationActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     protected GoogleApiClient mGoogleApiClient;
     private PlaceAutocompleteAdapter mAdapter;
     private CoordinatorLayout mRootView;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +49,14 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
                 .addApi(Places.GEO_DATA_API)
                 .build();
 
+        initViews();
+    }
+
+    private void initViews() {
         initToolbar();
         initAutocompleteView();
+        initButton();
+        mProgressDialog = Utils.createProgressDialog(this);
     }
 
     private void initToolbar() {
@@ -69,13 +83,36 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             AutocompletePrediction item = mAdapter.getItem(position);
-            String locationName = item.getFullText(null).toString();
-            PreferencesUtils.setLocationName(LocationActivity.this, locationName);
-            setResult(RESULT_OK);
-            Utils.hideKeyboard(LocationActivity.this);
-            LocationActivity.this.finish();
+            PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mGoogleApiClient, item.getPlaceId());
+            placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
         }
     };
+
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(PlaceBuffer places) {
+            if (!places.getStatus().isSuccess()) {
+                places.release();
+                return;
+            }
+            LatLng location = places.get(0).getLatLng();
+            PreferencesUtils.setLocation(LocationActivity.this, location.longitude, location.latitude);
+            places.release();
+            Utils.hideKeyboard(LocationActivity.this);
+            returnWithOkResult();
+        }
+    };
+
+    private void returnWithOkResult() {
+        setResult(RESULT_OK);
+        this.finish();
+    }
+
+    private void initButton() {
+        Button btnUseCurrentLocation = (Button) findViewById(R.id.btn_use_location);
+        btnUseCurrentLocation.setOnClickListener(this);
+
+    }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -91,5 +128,31 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_use_location:
+                Utils.hideKeyboard(LocationActivity.this);
+                getCurrentLocation();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void getCurrentLocation() {
+        mProgressDialog.show();
+        SingleShotLocationProvider.requestSingleUpdate(this, mRootView, new SingleShotLocationProvider.LocationCallback() {
+            @Override
+            public void onNewLocationAvailable(SingleShotLocationProvider.GPSCoordinates location) {
+                if (location != null) {
+                    PreferencesUtils.setLocation(LocationActivity.this, location.longitude, location.latitude);
+                    mProgressDialog.dismiss();
+                    returnWithOkResult();
+                }
+            }
+        });
     }
 }

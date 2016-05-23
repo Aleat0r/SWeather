@@ -7,6 +7,10 @@
     <color name="colorTextPrimary">#3B444B</color>
     <color name="colorTextSecondary">#727272</color>
 
+    <color name="colorControlNormal">#2196F3</color>
+    <color name="colorButtonNormal">#2196F3</color>
+    <color name="colorControlHighlight">#B0BEC5</color>
+
     <color name="colorGradientStart">#03A9F4</color>
     <color name="colorGradientCenter">#00BCD4</color>
     <color name="colorGradientEnd">#03A9F4</color>

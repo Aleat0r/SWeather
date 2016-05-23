@@ -42,6 +42,7 @@
     <string name="autocomplete_hint">Enter city name</string>
     <string name="error_connect_google_api">Could not connect to Google API Client: Error</string>
     <string name="error_contacting_API">Error contacting API:</string>
-
-
+    <string name="or">or</string>
+    <string name="use_location">use current location</string>
+    <string name="error_find_location">Can\'t find location</string>
 </resources>

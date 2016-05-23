@@ -85,7 +85,8 @@ public class ForecastWeatherFragment extends WeatherFragment {
 
     private void updateWeatherInfo() {
         mProgressDialog.show();
-        super.getWeatherByCity(ApiConstants.WEATHER_FORECAST, PreferencesUtils.getLocationName(getActivity()));
+        super.getWeatherByCoordinates(ApiConstants.WEATHER_FORECAST, PreferencesUtils.getLocationLongitude(getActivity()),
+                PreferencesUtils.getLocationLatitude(getActivity()));
     }
 
     @Subscribe

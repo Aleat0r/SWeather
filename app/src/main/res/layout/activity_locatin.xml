@@ -33,6 +33,19 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            style="@style/BasicTextView"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/big_margin"
+            android:text="@string/or" />
+
+        <Button
+            android:id="@+id/btn_use_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/use_location" />
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

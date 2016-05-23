@@ -37,7 +37,7 @@ public class WeatherFragment extends Fragment {
         BusProvider.getInstance().unregister(this);
     }
 
-    protected void getWeatherByCoordinates(String queryApi, String longitude, String latitude) {
+    protected void getWeatherByCoordinates(String queryApi, double longitude, double latitude) {
         Map params = getGeneralQueryParams();
         params.put(ApiConstants.QUERY_NAME_LONGITUDE, longitude);
         params.put(ApiConstants.QUERY_NAME_LATITUDE, latitude);

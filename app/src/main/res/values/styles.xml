@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="colorButtonNormal">@color/colorButtonNormal</item>
+        <item name="colorControlHighlight">@color/colorControlHighlight</item>
     </style>
 
     <style name="BasicLinearLayout">
@@ -17,7 +22,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/basic_text_size</item>
-        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
     <style name="MainTemperatureTextView" parent="BasicTextView">
@@ -26,7 +31,7 @@
 
     <style name="SmallTextView" parent="BasicTextView">
         <item name="android:textSize">@dimen/small_text_size</item>
-        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
     <style name="BasicTextViewWithDrawable" parent="BasicTextView">
@@ -38,10 +43,7 @@
     <style name="BigTextViewWithDrawable" parent="BasicTextViewWithDrawable">
         <item name="android:drawablePadding">@dimen/tv_with_small_drawable_padding</item>
         <item name="android:layout_marginTop">@dimen/tv_with_drawable_vertical_margin</item>
-    </style>
-
-    <style name="SmallTextViewWithDrawable" parent="BasicTextViewWithDrawable">
-        <item name="android:drawablePadding">@dimen/tv_with_big_drawable_padding</item>
+        <item name="android:clickable">true</item>
     </style>
 
     <style name="DrawerTitleTextView" parent="BasicTextView">
@@ -71,6 +73,8 @@
     <style name="AutoCompleteTextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textColorHint">?android:attr/textColorSecondary</item>
         <item name="android:singleLine">true</item>
     </style>
 
